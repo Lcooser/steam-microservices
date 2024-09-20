@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: likesdislikes
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: likesdislikes
+  template:
+    metadata:
+      labels:
+        app: likesdislikes
+    spec:
+      containers:
+        - name: likesdislikes
+          image: lcooser/likesdislikes:latest
+          ports:
+            - containerPort: 8085
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:postgresql://localhost:5432/ms-likesdislikes
+            - name: SPRING_DATASOURCE_USERNAME
+              value: postgres
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: 84051408oi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: likesdislikes
+spec:
+  selector:
+    app: likesdislikes
+  ports:
+    - protocol: TCP
+      port: 8085
+      targetPort: 8085
+  type : LoadBalancer

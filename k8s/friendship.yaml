@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: friendship
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: friendship
+  template:
+    metadata:
+      labels:
+        app: friendship
+    spec:
+      containers:
+        - name: friendship
+          image: lcooser/friendship:latest
+          ports:
+            - containerPort: 8089
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:postgresql://localhost:5432/ms-friendship
+            - name: SPRING_DATASOURCE_USERNAME
+              value: postgres
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: 84051408oi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: friendship
+spec:
+  selector:
+    app: friendship
+  ports:
+    - protocol: TCP
+      port: 8089
+      targetPort: 8089
+  type : LoadBalancer

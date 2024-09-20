@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: comment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: comment
+  template:
+    metadata:
+      labels:
+        app: comment
+    spec:
+      containers:
+        - name: comment
+          image: lcooser/comment:latest
+          ports:
+            - containerPort: 8086
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:postgresql://localhost:5432/ms-comment
+            - name: SPRING_DATASOURCE_USERNAME
+              value: postgres
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: 84051408oi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: comment
+spec:
+  selector:
+    app: comment
+  ports:
+    - protocol: TCP
+      port: 8086
+      targetPort: 8086
+  type : LoadBalancer

@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: invoice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: invoice
+  template:
+    metadata:
+      labels:
+        app: invoice
+    spec:
+      containers:
+        - name: invoice
+          image: lcooser/invoice:latest
+          ports:
+            - containerPort: 8081
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:postgresql://localhost:5432/ms-invoice
+            - name: SPRING_DATASOURCE_USERNAME
+              value: postgres
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: 84051408oi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: invoice
+spec:
+  selector:
+    app: invoice
+  ports:
+    - protocol: TCP
+      port: 8081
+      targetPort: 8081
+  type : LoadBalancer

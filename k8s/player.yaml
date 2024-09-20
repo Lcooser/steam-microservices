@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: player
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: player
+  template:
+    metadata:
+      labels:
+        app: player
+    spec:
+      containers:
+        - name: player
+          image: lcooser/player:latest
+          ports:
+            - containerPort: 8083
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:postgresql://localhost:5432/ms-player
+            - name: SPRING_DATASOURCE_USERNAME
+              value: postgres
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: 84051408oi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: player
+spec:
+  selector:
+    app: player
+  ports:
+    - protocol: TCP
+      port: 8083
+      targetPort: 8083
+  type : LoadBalancer
