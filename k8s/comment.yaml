@@ -24,6 +24,7 @@ spec:
               value: postgres
             - name: SPRING_DATASOURCE_PASSWORD
               value: 84051408oi
+              ##t
 ---
 apiVersion: v1
 kind: Service
