@@ -32,7 +32,7 @@ jobs:
           done
 
       - name: Set up kubectl
-        uses: imranismail/setup-kubectl@v1
+        uses: azure/setup-kubectl@v1
         with:
           version: 'latest'
 
