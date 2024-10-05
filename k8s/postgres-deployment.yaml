@@ -14,10 +14,8 @@ spec:
     spec:
       containers:
         - name: postgres
-          image: postgres:latest
+          image: postgres:16
           env:
-            - name: POSTGRES_DB
-              value: api
             - name: POSTGRES_USER
               value: postgres
             - name: POSTGRES_PASSWORD
@@ -27,10 +25,15 @@ spec:
           volumeMounts:
             - name: postgres-data
               mountPath: /var/lib/postgresql/data
+            - name: init-db
+              mountPath: /docker-entrypoint-initdb.d  # Diretório padrão para scripts de inicialização
       volumes:
         - name: postgres-data
           persistentVolumeClaim:
             claimName: postgres-pvc
+        - name: init-db
+          configMap:
+            name: init-db-scripts
 ---
 apiVersion: v1
 kind: Service

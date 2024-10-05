@@ -1,0 +1,85 @@
+name: CI-CD
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Build and package bank
+        working-directory: ./bank
+        run: mvn clean package -DskipTests
+
+      - name: Build and package comment
+        working-directory: ./comment
+        run: mvn clean package -DskipTests
+
+      - name: Build and package company
+        working-directory: ./company
+        run: mvn clean package -DskipTests
+
+      - name: Build and package email
+        working-directory: ./email
+        run: mvn clean package -DskipTests
+
+      - name: Build and package friendship
+        working-directory: ./friendship
+        run: mvn clean package -DskipTests
+
+      - name: Build and package game
+        working-directory: ./game
+        run: mvn clean package -DskipTests
+
+      - name: Build and package invoice
+        working-directory: ./invoice
+        run: mvn clean package -DskipTests
+
+      - name: Build and package likesdislikes
+        working-directory: ./likesdislikes
+        run: mvn clean package -DskipTests
+
+      - name: Build and package order
+        working-directory: ./order
+        run: mvn clean package -DskipTests
+
+      - name: Build and package player
+        working-directory: ./player
+        run: mvn clean package -DskipTests
+
+      - name: Build and package user
+        working-directory: ./user
+        run: mvn clean package -DskipTests
+
+      - name: Upload JAR artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: all-microservices
+          path: |
+            bank/target/*.jar
+            comment/target/*.jar
+            company/target/*.jar
+            email/target/*.jar
+            friendship/target/*.jar
+            game/target/*.jar
+            invoice/target/*.jar
+            likesdislikes/target/*.jar
+            order/target/*.jar
+            player/target/*.jar
+            user/target/*.jar

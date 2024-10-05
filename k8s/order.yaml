@@ -19,7 +19,7 @@ spec:
             - containerPort: 8087
           env:
             - name: SPRING_DATASOURCE_URL
-              value: jdbc:postgresql://localhost:5432/ms-order
+              value: jdbc:postgresql://postgres:5432/ms-order
             - name: SPRING_DATASOURCE_USERNAME
               value: postgres
             - name: SPRING_DATASOURCE_PASSWORD
@@ -36,4 +36,5 @@ spec:
     - protocol: TCP
       port: 8087
       targetPort: 8087
-  type : LoadBalancer
+      nodePort: 30008
+  type: NodePort

@@ -19,11 +19,12 @@ spec:
             - containerPort: 8086
           env:
             - name: SPRING_DATASOURCE_URL
-              value: jdbc:postgresql://localhost:5432/ms-comment
+              value: jdbc:postgresql://postgres:5432/ms-comment
             - name: SPRING_DATASOURCE_USERNAME
               value: postgres
             - name: SPRING_DATASOURCE_PASSWORD
               value: 84051408oi
+
 ---
 apiVersion: v1
 kind: Service
@@ -36,4 +37,5 @@ spec:
     - protocol: TCP
       port: 8086
       targetPort: 8086
-  type : LoadBalancer
+      nodePort: 30002
+  type: NodePort

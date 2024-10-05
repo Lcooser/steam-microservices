@@ -19,7 +19,7 @@ spec:
             - containerPort: 8082
           env:
             - name: SPRING_DATASOURCE_URL
-              value: jdbc:postgresql://localhost:5432/ms-game
+              value: jdbc:postgresql://postgres:5432/ms-game
             - name: SPRING_DATASOURCE_USERNAME
               value: postgres
             - name: SPRING_DATASOURCE_PASSWORD
@@ -36,4 +36,5 @@ spec:
     - protocol: TCP
       port: 8082
       targetPort: 8082
-  type : LoadBalancer
+      nodePort: 30005
+  type: NodePort

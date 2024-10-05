@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: init-db-scripts
+data:
+  init-databases.sql: |
+    CREATE DATABASE "ms-bank";
+    CREATE DATABASE "ms-comment";
+    CREATE DATABASE "ms-email";
+    CREATE DATABASE "ms-friendship";
+    CREATE DATABASE "ms-game";
+    CREATE DATABASE "ms-invoice";
+    CREATE DATABASE "ms-likesdislikes";
+    CREATE DATABASE "ms-order";
+    CREATE DATABASE "ms-player";
+    CREATE DATABASE "ms-user";

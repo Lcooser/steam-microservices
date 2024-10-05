@@ -19,7 +19,7 @@ spec:
             - containerPort: 8089
           env:
             - name: SPRING_DATASOURCE_URL
-              value: jdbc:postgresql://localhost:5432/ms-friendship
+              value: jdbc:postgresql://postgres:5432/ms-friendship
             - name: SPRING_DATASOURCE_USERNAME
               value: postgres
             - name: SPRING_DATASOURCE_PASSWORD
@@ -36,4 +36,5 @@ spec:
     - protocol: TCP
       port: 8089
       targetPort: 8089
-  type : LoadBalancer
+      nodePort: 30004
+  type: NodePort
